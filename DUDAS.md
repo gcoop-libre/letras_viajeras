@@ -21,7 +21,11 @@
  
  * Montaje 
     - Como se instalan in situ? Velcro autoadhesivo? cinta bifaz?
-    - Alimentacion ¿Conversion de tensiones? ¿Cables µUSB-???? ? ¿quien los arma?
+  
+ * Alimentacion
+    - Voltaje de entrada? ¿Como convertimos las tensiones LM7805? 
+    - Mandamos a hacer una plaquita con LM2596 para el step down?
+    - ¿Cables µUSB-???? ? ¿quien los arma?
 
 
 
