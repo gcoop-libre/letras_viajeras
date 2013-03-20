@@ -1,0 +1,44 @@
+{% extends "bootstrap_responsive.html" %}
+
+
+{% block style %}
+<link href="{{url_for('static', filename='bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{url_for('static', filename='bootstrap/css/bootstrap-responsive.min.css')}}" rel="stylesheet">
+<link href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet">
+<script src="{{url_for('static', filename='jquery.min.js')}}"></script>
+{% endblock %}
+
+{% block body_content %}
+
+{% block navbar %}
+
+{%set navigation_bar = [
+    ('/libros', 'Libros'),
+    ('/cuentos', 'Cuentos'),
+    ('/revistas', 'Revistas'),
+    ('/acerca_de', 'Acerca de'),
+]
+%}
+
+{% set active_page = active_page|default('') %}
+
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="{{ url_for('index')}}">
+      <img src="{{ url_for('static', filename='img/logo.png') }}"/>
+    </a>
+    <ul class="nav">
+      {% for href, titulo in navigation_bar %}
+      <li {% if titulo == active_page %} class='active' {% endif %}>
+            <a href="{{ href|e }}">{{ titulo|e }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div> 
+{% endblock %}
+
+{% block content%}
+{% endblock %}
+{% endblock %}
+

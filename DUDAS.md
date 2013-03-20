@@ -28,4 +28,4 @@
     - ¿Cables µUSB-???? ? ¿quien los arma?
 
 
-
+ * Armar sitio con acerca de (mostrar open wrt y refe de implementacion)

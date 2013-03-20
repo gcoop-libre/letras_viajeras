@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% set active_page='Libros' %}
+
+{% block content %}
+
+<div class='container-fluid'>
+  <div class='row-fluid'>
+    <div class='span4'>
+      <h4> Historia de Cronopios y de Famas</h4>
+      <h5> Julio Cortazar</h5>
+      <a href='pdf/sample.pdf'>
+        <img src='libros/cronopios_famas.png'/>
+        <br/>
+        Descargar </a>
+    </div>
+    <div class='span4'>
+      <h4> Rayuela </h4>
+      <h5> Julio Cortazar </h5>
+      <a href='pdf/sample.pdf'>
+        <img src='libros/rayuela.png'/>
+        <br/>
+        Descargar </a>
+    </div>
+    <div class='span4'>
+      <h4> El Aleph </h4>
+      <h5> Jorge Luis Borges </h5>
+      <a href='pdf/sample.pdf'>
+        <img src='libros/elaleph.png'/>
+        <br/>
+        Descargar </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
