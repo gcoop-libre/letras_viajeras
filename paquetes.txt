@@ -1,0 +1,5 @@
+kmod-usb-storage
+mini-httpd
+block-mount
+kmod-fs-vfat
+
