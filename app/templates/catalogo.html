@@ -1,34 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<h1> Test </h1>
-<div class='container-fluid'>
-  <div class='row-fluid'>
-    <div class='span4'>
-      <h4> Historia de Cronopios y de Famas</h4>
-      <h5> Julio Cortazar</h5>
-      <a href='pdf/sample.pdf'>
-        <img src='libros/cronopios_famas.png'/>
-        <br/>
-        Descargar </a>
-    </div>
-    <div class='span4'>
-      <h4> Rayuela </h4>
-      <h5> Julio Cortazar </h5>
-      <a href='pdf/sample.pdf'>
-        <img src='libros/rayuela.png'/>
-        <br/>
-        Descargar </a>
-    </div>
-    <div class='span4'>
-      <h4> El Aleph </h4>
-      <h5> Jorge Luis Borges </h5>
-      <a href='pdf/sample.pdf'>
-        <img src='libros/elaleph.png'/>
-        <br/>
-        Descargar </a>
-    </div>
-  </div>
-</div>
+<ul class="thumbnails">
+  {% for titulo, autor, pdf, imagen in datos %}
+  <li class="span6">
+  <div class='thumbnail'>
+    <a href="{{ url_for('static', filename=pdf) }}">
+      <img
+      data-src="{{ url_for('static', filename=imagen) }}"
+      src="{{ url_for('static', filename=imagen) }}"
+      alt="{{ autor|e }} -  {{titulo|e}}"
+      >
+    </a>
+    <h4> {{ titulo|e }} </h4>
+    <p> {{ autor|e }} </p>
+    <a href="{{ url_for('static', filename=pdf) }}">Descargar</a>
+  </div>    
+  </li>
+  {% endfor %}
+</ul>
 {% endblock %}
