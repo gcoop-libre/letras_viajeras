@@ -39,6 +39,18 @@
 </div> 
 {% endblock %}
 
+{% block botonera %}
+{% if filtros %}
+<ul class="nav nav-tabs">
+  {% for href, titulo in filtros %}
+  <li {% if titulo == filtro_activo %} class='active' {% endif %}>
+  <a href="{{ href|e }}">{{ titulo|e }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
+
 {% block content%}
 {% endblock %}
 {% endblock %}

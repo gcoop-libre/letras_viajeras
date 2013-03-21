@@ -1,6 +1,6 @@
 #! -*- coding: utf8 -*-
 import csv
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 from flask.ext.bootstrap import Bootstrap
 
 SECRET_KEY = 'alskdjalksdjalskdjaslkdjasldjaslkdjasdlkasd,mc,mxcnvm,xncv,sdkas'
@@ -11,15 +11,60 @@ app.config.from_object(__name__)
 
 Bootstrap(app)
 
+def obtener_filtros(categoria):
+    filtros = {
+        'cuentos' : [
+            ( url_for('cuentos'), 'Todos'),
+            ( url_for('cuentos_por_autor'), 'Por Autor'),
+            ( url_for('cuentos_por_titulo'), 'Por Titulo'),
+            ],
+        'libros' : [
+            ( url_for('libros'), 'Todos'),
+            ( url_for('libros_por_autor'), 'Por Autor'),
+            ( url_for('libros_por_titulo'), 'Por Titulo'),
+            ],
+        'revistas' : [
+            ( url_for('revistas'), 'Todos'),
+            ( url_for('revistas_por_nombre'), 'Por Nombre'),
+            ],
+        };
+    return filtros.get(categoria, None)
+
+
+def full_name(apellido, nombre):
+    return "%s, %s" % (apellido, nombre)
+
 def filtrar_csv_por_categoria(categoria):
+    """filtra el csv por la cuarta columna, categoria"""
+
+    return filtrar_csv(lambda fila: fila[3] == categoria)
+
+def filtrar_csv_por_categoria_y_autor(categoria, autor):
+    """filtra el csv por la cuarta columna, categoria y la segunda"""
+
+    return filtrar_csv(lambda fila: fila[3] == categoria and full_name(fila[0], fila[1]) == autor)
+
+def filtrar_csv(funcion):
+    """Filtra el csv usando una funcion"""
+
     with open('datos.csv', 'r') as csvfile:
         reader = csv.reader(csvfile)
         for fila in reader:
             fila = [a.decode('utf8') for a in fila]
             apellido, nombre, titulo, tipo, pdf, imagen = fila
-            if tipo == categoria:
-                yield (titulo, "%s %s" % (nombre, apellido), pdf, imagen)
+            if funcion(fila):
+                yield (titulo, full_name(apellido, nombre), pdf, imagen)
 
+def obtener_autores_categoria(categoria):
+    datos = filtrar_csv_por_categoria(categoria)
+    metodo = '%ss_de_autor' % categoria
+    autores = set([(nombre, url_for(metodo, autor=nombre)) for _, nombre, _, _ in datos])
+    return sorted(list(autores))
+
+def obtener_titulos_categoria(categoria):
+    datos = filtrar_csv_por_categoria(categoria)
+    titulos = set([(u"%s - %s" % (titulo, nombre), url_for('static', filename=pdf)) for titulo, nombre, pdf, _ in datos])
+    return sorted(list(titulos))
 
 @app.route('/')
 def index():
@@ -28,20 +73,109 @@ def index():
 @app.route('/libros/')
 def libros():
     datos = filtrar_csv_por_categoria('libro')
-    return render_template('catalogo.html', active_page='Libros', datos=datos)
+    return render_template(
+            'catalogo.html',
+            active_page='Libros',
+            datos=datos,
+            filtros=obtener_filtros('libros'),
+            filtro_activo = 'Todos',
+            )
+
+@app.route('/libros/por_autor/')
+def libros_por_autor():
+    datos = obtener_autores_categoria('libro')
+    return render_template(
+            'lista.html',
+            active_page='Libros',
+            datos=datos,
+            filtros=obtener_filtros('libros'),
+            filtro_activo = 'Por Autor',
+            )
+
+@app.route('/libros/autor/<string:autor>/')
+def libros_de_autor(autor):
+    datos = filtrar_csv_por_categoria_y_autor('libro', autor)
+    return render_template(
+            'catalogo.html',
+            active_page='Libros',
+            datos=datos,
+            filtros=obtener_filtros('libros'),
+            filtro_activo = 'Por Titulo',
+            )
+
+@app.route('/libros/por_titulo/')
+def libros_por_titulo():
+    datos = obtener_titulos_categoria('libro')
+    return render_template(
+            'lista.html',
+            active_page='Libros',
+            datos=datos,
+            filtros=obtener_filtros('libros'),
+            filtro_activo = 'Por Titulo',
+            )
 
 @app.route('/cuentos/')
 def cuentos():
     datos = filtrar_csv_por_categoria('cuento')
-    return render_template('catalogo.html', active_page='Cuentos', datos=datos)
+    return render_template(
+            'catalogo.html',
+            active_page='Cuentos',
+            datos=datos,
+            filtros=obtener_filtros('cuentos'),
+            filtro_activo = 'Todos',
+            )
 
+@app.route('/cuentos/por_autor/')
+def cuentos_por_autor():
+    datos = obtener_autores_categoria('cuento')
+    return render_template(
+            'lista.html',
+            active_page='Cuentos',
+            datos=datos,
+            filtros=obtener_filtros('cuentos'),
+            filtro_activo = 'Por Autor',
+            )
+
+@app.route('/cuentos/por_titulo/')
+def cuentos_por_titulo():
+    datos = obtener_titulos_categoria('cuento')
+    return render_template(
+            'lista.html',
+            active_page='Cuentos',
+            datos=datos,
+            filtros=obtener_filtros('cuentos'),
+            filtro_activo = 'Por Autor',
+            )
+
+@app.route('/cuentos/autor/<string:autor>/')
+def cuentos_de_autor(autor):
+    datos = filtrar_csv_por_categoria_y_autor('cuento', autor)
+    return render_template(
+            'catalogo.html',
+            active_page='Cuentos',
+            datos=datos,
+            filtros=obtener_filtros('cuentos'),
+            filtro_activo = 'Por Titulo',
+            )
 
 
 
 @app.route('/revistas/')
 def revistas():
     datos = filtrar_csv_por_categoria('revista')
-    return render_template('catalogo.html', active_page='Revistas', datos=datos)
+    return render_template(
+            'catalogo.html',
+            active_page='Revistas',
+            datos=datos,
+            filtros=obtener_filtros('revistas'),
+            filtro_activo = 'Todos',
+            )
+
+
+@app.route('/revistas/por_nombre/')
+def revistas_por_nombre():
+    return 'Hola Mundo';
+
 
 @app.route('/acerca_de/')
 def acerca_de():
@@ -49,3 +183,4 @@ def acerca_de():
 
 if __name__ == '__main__':
     app.run(debug=True, threaded=True, host='0.0.0.0')
+
