@@ -6,6 +6,9 @@
   <li class="span6">
   <div class='thumbnail'>
     <a href="{{ url_for('static', filename=pdf) }}">
+      {% if imagen == '' %}
+      {% set imagen = 'book-fallback.png' %}
+      {% endif %}
       <img
       data-src="{{ url_for('static', filename=imagen) }}"
       src="{{ url_for('static', filename=imagen) }}"

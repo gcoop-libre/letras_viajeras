@@ -26,6 +26,7 @@
     - Voltaje de entrada? ¿Como convertimos las tensiones LM7805? 
     - Mandamos a hacer una plaquita con LM2596 para el step down?
     - ¿Cables µUSB-???? ? ¿quien los arma?
+    http://articulo.mercadolibre.com.ar/MLA-452151726-cargador-12v-usb-universal-autos-iphone-blackberry-ipad--_JM
 
 
  * Armar sitio con acerca de (mostrar open wrt y refe de implementacion)

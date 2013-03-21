@@ -14,10 +14,10 @@
 {% block navbar %}
 
 {%set navigation_bar = [
-    ('/libros', 'Libros'),
-    ('/cuentos', 'Cuentos'),
-    ('/revistas', 'Revistas'),
-    ('/acerca_de', 'Acerca de'),
+    (url_for('libros'), 'Libros'),
+    (url_for('cuentos'), 'Cuentos'),
+    (url_for('revistas'), 'Revistas'),
+    (url_for('acerca_de'), 'Acerca de'),
 ]
 %}
 
@@ -42,4 +42,3 @@
 {% block content%}
 {% endblock %}
 {% endblock %}
-

@@ -1,5 +1,6 @@
 #! -*- coding: utf8 -*-
-from flask import Flask, url_for, render_template, Response, json, jsonify, redirect, request, flash
+import csv
+from flask import Flask, render_template
 from flask.ext.bootstrap import Bootstrap
 
 SECRET_KEY = 'alskdjalksdjalskdjaslkdjasldjaslkdjasdlkasd,mc,mxcnvm,xncv,sdkas'
@@ -10,50 +11,39 @@ app.config.from_object(__name__)
 
 Bootstrap(app)
 
+def filtrar_csv_por_categoria(categoria):
+    with open('datos.csv', 'r') as csvfile:
+        reader = csv.reader(csvfile)
+        for fila in reader:
+            fila = [a.decode('utf8') for a in fila]
+            apellido, nombre, titulo, tipo, pdf, imagen = fila
+            if tipo == categoria:
+                yield (titulo, "%s %s" % (nombre, apellido), pdf, imagen)
+
+
 @app.route('/')
 def index():
     return render_template('index.html', active_page='Inicio')
 
-@app.route('/libros')
+@app.route('/libros/')
 def libros():
-    datos = [
-        ('Historia de Cronopios y de Famas', 'Julio Cortazar', 'pdf/sample.pdf', 'libros/cronopios_famas.png'),
-        ('Rayuela', 'Julio Cortazar', 'pdf/sample.pdf', 'libros/rayuela.png'),
-        ('El Aleph', 'Jorge Luis Borges', 'pdf/sample.pdf', 'libros/elaleph.png'),
-    ]
-
-    datos = datos * 50
-
+    datos = filtrar_csv_por_categoria('libro')
     return render_template('catalogo.html', active_page='Libros', datos=datos)
 
-@app.route('/cuentos')
+@app.route('/cuentos/')
 def cuentos():
-    datos = [
-        ('Historia de Cronopios y de Famas', 'Julio Cortazar', 'pdf/sample.pdf', 'libros/cronopios_famas.png'),
-        ('Rayuela', 'Julio Cortazar', 'pdf/sample.pdf', 'libros/rayuela.png'),
-        ('El Aleph', 'Jorge Luis Borges', 'pdf/sample.pdf', 'libros/elaleph.png'),
-    ]
-
-    datos = datos * 50
-
-    return render_template('catalogo.html', active_page='Libros', datos=datos)
+    datos = filtrar_csv_por_categoria('cuento')
+    return render_template('catalogo.html', active_page='Cuentos', datos=datos)
 
 
 
 
-@app.route('/revistas')
+@app.route('/revistas/')
 def revistas():
-    datos = [
-        (u'El Pendulo N°1', u'Varios', u'pdf/sample.pdf', u'revistas/pendulo1.png'),
-        (u'El Pendulo N°2', u'Varios', u'pdf/sample.pdf', u'revistas/pendulo2.png'),
-        (u'El Pendulo N°5', u'Varios', u'pdf/sample.pdf', u'revistas/pendulo5.png'),
-    ]
-
-    datos = datos * 50
-
+    datos = filtrar_csv_por_categoria('revista')
     return render_template('catalogo.html', active_page='Revistas', datos=datos)
 
-@app.route('/acerca_de')
+@app.route('/acerca_de/')
 def acerca_de():
     return render_template('acerca_de.html')
 
