@@ -174,7 +174,14 @@ def revistas():
 
 @app.route('/revistas/por_nombre/')
 def revistas_por_nombre():
-    return 'Hola Mundo';
+    datos = obtener_titulos_categoria('revista')
+    return render_template(
+            'lista.html',
+            active_page='Revistas',
+            datos=datos,
+            filtros=obtener_filtros('revistas'),
+            filtro_activo = 'Por Nombre',
+            )
 
 
 @app.route('/acerca_de/')
