@@ -103,6 +103,14 @@ config redirect
 	option src lan
 	option proto tcp
 	option src_ip !10.0.0.1
+	option src_dport 443
+	option dest_ip 10.0.0.1
+	option dest_port 80
+	
+config redirect
+	option src lan
+	option proto tcp
+	option src_ip !10.0.0.1
 	option src_dport 80
 	option dest_ip 10.0.0.1
 	option dest_port 80
