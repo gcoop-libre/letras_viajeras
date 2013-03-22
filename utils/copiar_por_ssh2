@@ -1,0 +1,1 @@
+scp -r ../config_ap/etc/config/dhcp root@letraviajera:/etc/config/
