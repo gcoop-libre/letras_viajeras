@@ -188,6 +188,14 @@ def revistas_por_nombre():
 def acerca_de():
     return render_template('acerca_de.html')
 
+
+# fixes para que ande mac y el portal cautivo
+# http://forums.appleinsider.com/t/153426/ios-6-and-captive-portals#post_2279865
+@app.route('/library/test/success.html')
+def fix_ios():
+    return "<HTML><HEAD><TITLE>Success</TITLE></HEAD><BODY>Success</BODY></HTML>"
+
+
 if __name__ == '__main__':
     app.run(debug=True, threaded=True, host='0.0.0.0')
 
