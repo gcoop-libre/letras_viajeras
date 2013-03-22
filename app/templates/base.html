@@ -23,18 +23,27 @@
 
 {% set active_page = active_page|default('') %}
 
-<div class="navbar">
+<div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
-    <a class="brand" href="{{ url_for('index')}}">
-      <img src="{{ url_for('static', filename='img/logo.png') }}"/>
-    </a>
-    <ul class="nav">
-      {% for href, titulo in navigation_bar %}
-      <li {% if titulo == active_page %} class='active' {% endif %}>
-            <a href="{{ href|e }}">{{ titulo|e }}</a>
-        </li>
-      {% endfor %}
-    </ul>
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="{{ url_for('index')}}">
+        <img src="{{ url_for('static', filename='img/logo.png') }}"/>
+      </a>
+      <div class="nav-collapse">
+        <ul class="nav">
+          {% for href, titulo in navigation_bar %}
+          <li {% if titulo == active_page %} class='active' {% endif %}>
+          <a href="{{ href|e }}">{{ titulo|e }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
   </div>
 </div> 
 {% endblock %}
@@ -50,7 +59,13 @@
 </ul>
 {% endif %}
 {% endblock %}
-
-{% block content%}
+<div class="container-fluid">
+  {% block content%}
 {% endblock %}
+  <div class="row-fluid">
+    <div class="footer span12">
+      <img src="{{ url_for('static', filename='img/ba-footer.png') }}"/>
+    </div>
+  </div>
+</div>
 {% endblock %}
