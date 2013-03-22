@@ -15,11 +15,11 @@ config dnsmasq
 	option leasefile '/tmp/dhcp.leases'
 	option resolvfile '/tmp/resolv.conf.auto'
 
-config dhcp 'lan'
-	option interface 'lan'
-	option start '100'
-	option limit '150'
-	option leasetime '12h'
+#config dhcp 'lan'
+#	option interface 'lan'
+#	option start '100'
+#	option limit '150'
+#	option leasetime '12h'
 
 config dhcp 'wan'
 	option interface 'wan'
@@ -29,5 +29,5 @@ config dhcp
 	option start '100'
 	option leasetime '12h'
 	option limit '150'
-	option interface 'wlan'
+	option interface 'lan'
 

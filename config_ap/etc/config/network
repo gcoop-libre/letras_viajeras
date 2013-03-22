@@ -10,7 +10,7 @@ config interface 'wan'
 	option ifname 'eth0'
 	option hostname 'LetraViajera'
 
-config interface 'wlan'
+config interface 'lan'
 	option type 'bridge'
 	option proto 'static'
 	option ipaddr '10.0.0.1'
