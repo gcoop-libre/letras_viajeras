@@ -195,6 +195,12 @@ def acerca_de():
 def fix_ios():
     return "<HTML><HEAD><TITLE>Success</TITLE></HEAD><BODY>Success</BODY></HTML>"
 
+@app.route('/errors/err404.html')
+def error_pages():
+    return render_template(
+            'err404.html',
+            active_page='Error',
+            )
 
 if __name__ == '__main__':
     app.run(debug=True, threaded=True, host='0.0.0.0')
