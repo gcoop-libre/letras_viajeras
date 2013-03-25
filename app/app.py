@@ -32,7 +32,10 @@ def obtener_filtros(categoria):
 
 
 def full_name(apellido, nombre):
-    return "%s, %s" % (apellido, nombre)
+    if nombre:
+        return "%s, %s" % (apellido, nombre)
+    else:
+        return apellido
 
 def filtrar_csv_por_categoria(categoria):
     """filtra el csv por la cuarta columna, categoria"""
