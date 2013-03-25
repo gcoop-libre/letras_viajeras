@@ -21,5 +21,12 @@ body {
 }
 
 .reader-info {
-  margin-top: 80px;
+  margin-top: 50px;
+}
+
+.separador-bottom-25 {
+  margin-bottom: 25px;
+}
+.separador-bottom-50 {
+  margin-bottom: 50px;
 }

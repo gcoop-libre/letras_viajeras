@@ -5,7 +5,7 @@
 <div class="container-fluid">
   <div class="row-fluid">
     {% for titulo, autor, pdf, imagen in datos %}
-    <div class='span4'>
+    <div class='span4 centered separador-bottom-50'>
       <a href="{{ url_for('static', filename=pdf) }}">
         {% if imagen == '' %}
         {% set imagen = 'book-fallback.png' %}
