@@ -15,3 +15,11 @@ body {
 .footer img {
     display: inline;
 }
+
+.centered {
+  text-align: center;
+}
+
+.reader-info {
+  margin-top: 80px;
+}
