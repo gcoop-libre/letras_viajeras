@@ -24,6 +24,7 @@ Se utilizan los scripts provistos dentro de utils se supone que tiene instalado 
  * entrar al directorio (los paths son relativos)
  * Conectar el router a la alimentacion y esperar que termine de bootear
  * Con un cable de red desde nuestro *eth0*  al puerto del router ejecutar **ip_fija** 
+ * Usario: admin pass: admin
  * En la ventana del browser, ir a System Tools > Firmware Update y cargar el firmware que esta en el directorio *firmware/* y darle a upgrade
  * Esperar a que se actualize el Firmware
  * Correr el script **ip_fija2**, nos cambia la ip y se abre luci
