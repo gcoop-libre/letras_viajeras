@@ -10,7 +10,7 @@ seleccionados por la Dirección.
 Los documentos, (libros, cuentos y revistas) son materiales del dominio 
 público y/o con licencias libres.
 
-![alt text](https://github.com/gcoop-libre/letras_viajeras/blob/master/data/muestra.png Ejemplo)
+![alt text](https://raw.github.com/gcoop-libre/letras_viajeras/master/data/muestra.png "Ejemplo")
 
 Letras Viajeras fue desarrollado íntegramente con Software Libre por la 
 [Cooperativa de trabajo gcoop](http://gcoop.coop). La solución consiste en un Router Inalámbrico al que se le instala [OpenWRT](http://openwrt.org), un Firmware libre basado en el kernel Linux.
