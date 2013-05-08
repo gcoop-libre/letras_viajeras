@@ -7,7 +7,7 @@ localizado dentro de **app/**. Se recomienda observar el formato de dicho archiv
 Consideramos que se tiene instalado en el sistema **python-distribute**
  
  * Crear un virtualenv e ingresar al mismo:
-	
+    
     virtualenv env
     . env/bin/activate
 
@@ -83,10 +83,10 @@ Dentro del filesystem del router
         list address '/#/10.0.0.1'     #<-----Comentar esta linea
 
     #config dhcp 'lan'
-    #	option interface 'lan'
-    #	option start '100'
-    #	option limit '150'
-    #	option leasetime '12h'
+    #   option interface 'lan'
+    #   option start '100'
+    #   option limit '150'
+    #   option leasetime '12h'
 
     config dhcp 'wan'
         option interface 'wan'
@@ -188,10 +188,10 @@ Dentro del filesystem del router
         #list address '/#/10.0.0.1'     #<----- Descomenta esta linea
 
     #config dhcp 'lan'
-    #	option interface 'lan'
-    #	option start '100'
-    #	option limit '150'
-    #	option leasetime '12h'
+    #   option interface 'lan'
+    #   option start '100'
+    #   option limit '150'
+    #   option leasetime '12h'
 
     config dhcp 'wan'
         option interface 'wan'
