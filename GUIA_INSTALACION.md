@@ -102,14 +102,14 @@ Dentro del filesystem del router
  
  * Reiniciar *dnsmasq*: (da un error porque no anda la wlan, pero igual reinicia)
     
-        /etc/init.d/dnsmasq restart
+            /etc/init.d/dnsmasq restart
 
  * Ir al home de root y ejecutar los siguientes scripts:
     
-    cd /root
-    sh instalar_paquetes.sh
-    sh levantar_ws.sh
-    sh config_fstab.sh
+        cd /root
+        sh instalar_paquetes.sh
+        sh levantar_ws.sh
+        sh config_fstab.sh
 
  * Entrar al archivo */etc/config/wireless* y reemplazar la linea **option macaddr ...** de *radio0* por la de *radio1*
 
