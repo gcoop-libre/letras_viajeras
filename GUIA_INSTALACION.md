@@ -31,6 +31,8 @@ Consideramos que se tiene instalado en el sistema **python-distribute**
 
 Para instalar el firmware necesitamos un servidor dhcp instalado en la red, y acceso a internet.
 
+### Desde la nuestra máquina
+
 Los scripts localizados dentro de **utils/** suponen que se utilizará el navegador *google-chrome*, en caso de no tenerlo instalado, se pueden modificar los scripts ip_fija e ip_fija2, para que utilizen otro browser.
 
  * Ingresar al directorio *utils/*
@@ -45,6 +47,12 @@ Los scripts localizados dentro de **utils/** suponen que se utilizará el navega
  * Se abrirá el navegador apuntando al sitio de administracion del router. 
  * Los datos solicitados son: usuario: *admin* pass: *admin*
  * En la ventana del browser, ir a System Tools > Firmware Update y cargar el firmware que esta en el directorio *firmware/* y darle al botón upgrade.
+    
+   ![alt text](https://raw.github.com/gcoop-libre/letras_viajeras/master/data/captura_tplink_1.png "Paso 1")
+   ![alt text](https://raw.github.com/gcoop-libre/letras_viajeras/master/data/captura_tplink_2.png "Paso 2")
+   ![alt text](https://raw.github.com/gcoop-libre/letras_viajeras/master/data/captura_tplink_3.png "Paso 3")
+ 
+
  * Esperar a que se actualize el Firmware
  * Correr el script ``ip_fija2``, nos cambia la ip y se abre luci (El sitio de administracion web de Open-WRT)
     
@@ -63,46 +71,12 @@ Los scripts localizados dentro de **utils/** suponen que se utilizará el navega
     
         ssh root@letraviajera
 
-Dentro del filesystem del router
+### Dentro del filesystem del router
 
- * Entrar al archivo /etc/config/dhcp y comentar la linea que empieza con "list address ":
-    
-        config dnsmasq
-            option domainneeded '1'
-            option boguspriv '1'
-            option filterwin2k '0'
-            option localise_queries '1'
-            option rebind_protection '1'
-            option rebind_localhost '1'
-            option local '/lan/'
-            option domain 'lan'
-            option expandhosts '1'
-            option nonegcache '0'
-            option authoritative '1'
-            option readethers '1'
-            option leasefile '/tmp/dhcp.leases'
-            option resolvfile '/tmp/resolv.conf.auto'
-            list address '/#/10.0.0.1'     #<-----Comentar esta linea
-
-        #config dhcp 'lan'
-        #   option interface 'lan'
-        #   option start '100'
-        #   option limit '150'
-        #   option leasetime '12h'
-
-        config dhcp 'wan'
-            option interface 'wan'
-            option ignore '1'
-
-        config dhcp
-            option start '100'
-            option leasetime '12h'
-            option limit '150'
-            option interface 'lan'
  
  * Reiniciar *dnsmasq*: (da un error porque no anda la wlan, pero igual reinicia)
     
-            /etc/init.d/dnsmasq restart
+        /etc/init.d/dnsmasq restart
 
  * Ir al home de root y ejecutar los siguientes scripts:
     
@@ -189,12 +163,6 @@ Dentro del filesystem del router
             option resolvfile '/tmp/resolv.conf.auto'
             #list address '/#/10.0.0.1'     #<----- Descomenta esta linea
 
-        #config dhcp 'lan'
-        #   option interface 'lan'
-        #   option start '100'
-        #   option limit '150'
-        #   option leasetime '12h'
-
         config dhcp 'wan'
             option interface 'wan'
             option ignore '1'
@@ -208,5 +176,3 @@ Dentro del filesystem del router
  * Enchufar el pendrive con el contenido generado, y reiniciar el router.
 
 Una vez configurado, el router levanta un servidor dhcp en el wifi, y su ip es 10.0.0.1, para entrar por la **wan** usar el nombre de dominio *letraviajera*.
- 
-
