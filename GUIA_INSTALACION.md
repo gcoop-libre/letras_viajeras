@@ -155,6 +155,64 @@ se copió en el router en ``/etc/dropbear/authorized_keys``
 
 De esta manera se pueden ejecutar comandos en remoto, por ejemplo:
 
-  ssh Letra 'sh /root/autoconfig.sh -ucr'
+    ssh Letra 'sh /root/autoconfig.sh -ucr'
 
+
+### Configurando varios routers
+
+Existe un script que realiza todos los pasos luego del primer flash del
+firmware OpenWRT:
+
+    ssh Letra '/bin/sh /root/post_flash.sh'
+
+La salida del log es similar a la siguiente:
+
+    2014-07-18 18:17:30 Parámetros a Aplicar MAC=C0:4A:00:44:7C:C0
+    HOST=C04A00447CC0 WAN_HOST=C04A00447CC0 IP=10.0.0.1 IP_BC=10.0.0.255
+    SSID=LetraViajera
+    uci commit
+    reboot!...
+    2014-07-18 18:17:30 Parámetros Aplicados MAC=C0:4A:00:44:7C:C0
+    HOST=C04A00447CC0 WAN_HOST=C04A00447CC0 IP=10.0.0.1 IP_BC=10.0.0.255
+    SSID=LetraViajera
+
+Una vez realizado este paso, el router reinicia y en 1minuto vuelve a
+estar operativo, pero su hostname pasa a ser su macaddress, es útil para
+trabajar con varios equipos conectados en la misma red. En estos casos
+es conveniente agregar un alias en el archivo ``~/.ssh/config``
+
+    Host C04A00*
+        User root
+        UserKnownHostsFile /dev/null
+        StrictHostKeyChecking no
+        IdentityFile ~/.ssh/gcoop_rsa
+
+Contando con esta configuración podemos acceder al equipo utilizando la
+mac adress como hostname:
+
+    sleep 1m && ssh C04A00447CC0 uptime
+
+De esta manera deberíamos acceder al router sin contraseña y verificar
+su uptime, nos confirma que pudo reiniciar sin problemas luego de los
+cambios aplicados.
+
+
+### Failsafe
+
+En ocasiones, los cambios aplicados pueden corromper el sistema y el
+router no inicia correctamente, para subsanar este inconveniente, se
+puede iniciar en modo ``failsafe``, para esto es necesario presionar el
+botón ``RESET`` varias veces, mientras está iniciando el router, en un
+par de segundos el led WPS titilará muy rápido, eso indica que podemos
+ingresar manualmente y eliminar las configuraciones aplicadas:
+
+      sudo ifconfig eth0 192.168.1.1
+      telnet 192.168.1.1
+      mount_root
+      rm -r /overlay/*
+      reboot -f
+
+Luego podemos ingresar por ssh a la ip: 192.168.1.1 y volver aplicar los
+cambios necesarios, en modo failsafe se puede cambiar la contraseña de
+root si la olvidaste.
 

@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-MAC=$(ifconfig | egrep br-lan.*HWaddr | awk '{print $5}')
+MAC=$(ifconfig | egrep eth0.*HWaddr | awk '{print $5}')
 HOST=$(echo $MAC | tr -d ":")
 WAN_HOST=$HOST
 #IP=$(uci get network.lan.ipaddr)
