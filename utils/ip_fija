@@ -1,2 +1,2 @@
 sudo ifconfig eth0 192.168.0.1 up
-google-chrome 192.168.0.254
+firefox 192.168.0.254
