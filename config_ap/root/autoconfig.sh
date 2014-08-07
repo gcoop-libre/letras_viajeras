@@ -21,7 +21,7 @@ HOST=$(echo $MAC | tr -d ":")
 WAN_HOST=$HOST
 #IP=$(uci get network.lan.ipaddr)
 IP=10.0.0.1
-SSID=LetraViajera
+SSID=LetrasViajeras
 RUN_UCI=0
 COMMIT_UCI=0
 REBOOT=0
@@ -47,7 +47,7 @@ usage()
 cat << EOF
 
 Use: autoconfig.sh [options]
-Example: autoconfig.sh -i 10.0.0.1 -ucr -w LetraViajera'
+Example: autoconfig.sh -i 10.0.0.1 -ucr -w LetrasViajeras'
 
 Options:                                   Default:
             

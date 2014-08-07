@@ -54,7 +54,12 @@ def filtrar_csv(funcion):
         reader = csv.reader(csvfile)
         for fila in reader:
             fila = [a.decode('utf8') for a in fila]
-            apellido, nombre, titulo, tipo, pdf, imagen = fila
+
+            try:
+              apellido, nombre, titulo, tipo, pdf, imagen = fila
+            except ValueError:
+              print fila
+
             if funcion(fila):
                 yield (titulo, full_name(apellido, nombre), pdf, imagen)
 
@@ -103,7 +108,7 @@ def libros_de_autor(autor):
             active_page='Libros',
             datos=datos,
             filtros=obtener_filtros('libros'),
-            filtro_activo = 'Por Titulo',
+            filtro_activo = 'Por Autor',
             )
 
 @app.route('/libros/por_titulo/')
@@ -147,7 +152,7 @@ def cuentos_por_titulo():
             active_page='Cuentos',
             datos=datos,
             filtros=obtener_filtros('cuentos'),
-            filtro_activo = 'Por Autor',
+            filtro_activo = 'Por Titulo',
             )
 
 @app.route('/cuentos/autor/<string:autor>/')
@@ -158,7 +163,7 @@ def cuentos_de_autor(autor):
             active_page='Cuentos',
             datos=datos,
             filtros=obtener_filtros('cuentos'),
-            filtro_activo = 'Por Titulo',
+            filtro_activo = 'Por Autor',
             )
 
 
