@@ -43,10 +43,11 @@ process_running()
 	fi
 }
 
-wget -q -O - http://$SRV_IP/index.md5 >/tmp/index.md5
-FILES=$(wc -l /tmp/index.md5 | awk '{print $1}')
-FILES_OK=$(md5sum -c /tmp/index.md5 | grep ": OK" | wc -l | awk '{print $1}')
+cd /www
+FILES=$(wc -l index.md5 | awk '{print $1}')
+FILES_OK=$(md5sum -c index.md5 | grep ": OK" | wc -l | awk '{print $1}')
 OK=$(echo $?)
+cd /
 
 if [ $FILES -eq $FILES_OK ]
 then
