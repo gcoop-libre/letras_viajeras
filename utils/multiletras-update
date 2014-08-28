@@ -1,0 +1,4 @@
+#!/bin/bash
+
+parallel-ssh -i -h ~/.ssh/letras 'wget -O - http://192.168.10.180/deploy.sh | /bin/sh'
+
