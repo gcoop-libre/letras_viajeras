@@ -2,6 +2,8 @@
 
 DATE=$(date +%Y-%m-%d)
 
+cp static/favicon.ico build/favicon.ico
+
 cd build
 
 find -maxdepth 3 -name index.html | sort | while read i
